@@ -17,7 +17,7 @@ class ContactController extends Controller
 {
     public function create(ContactCreateRequest $request): JsonResponse
     {
-        $data  = $request->validated();
+        $data = $request->validated();
         $user = Auth::user();
 
         $contact = new Contact($data);
@@ -31,29 +31,29 @@ class ContactController extends Controller
     {
         $user = Auth::user();
         $contact = Contact::where('id', $id)->where('user_id', $user->id)->first();
-        if (!$contact){
+        if (!$contact) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
                     'message' => [
-                        "User not found"
+                        "Contact not found"
                     ]
                 ]
             ])->setStatusCode(404));
         }
 
-    return new ContactResource($contact);
+        return new ContactResource($contact);
     }
 
-    public function update(int $id, ContactUpdateRequest $request):ContactResource
+    public function update(int $id, ContactUpdateRequest $request): ContactResource
     {
         $user = Auth::user();
 
         $contact = Contact::where('id', $id)->where('user_id', $user->id)->first();
-        if (!$contact){
+        if (!$contact) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
                     'message' => [
-                        "User not found"
+                        "Contact not found"
                     ]
                 ]
             ])->setStatusCode(404));
@@ -71,11 +71,11 @@ class ContactController extends Controller
         $user = Auth::user();
 
         $contact = Contact::where('id', $id)->where('user_id', $user->id)->first();
-        if (!$contact){
+        if (!$contact) {
             throw new HttpResponseException(response()->json([
                 'errors' => [
                     'message' => [
-                        "User not found"
+                        "Contact not found"
                     ]
                 ]
             ])->setStatusCode(404));
@@ -96,23 +96,23 @@ class ContactController extends Controller
 
         $contacts = Contact::query()->where('user_id', $user->id);
 
-        $contacts = $contacts->where(function (Builder $builder) use ($request){
-           $name = $request->input('name');
-           if ($name){
-               $builder->where(function (Builder $builder) use ($name){
-                   $builder->orWhere('first_name', 'like', '%'.$name.'%');
-                   $builder->orWhere('last_name', 'like', '%'.$name.'%');
-               });
-           }
+        $contacts = $contacts->where(function (Builder $builder) use ($request) {
+            $name = $request->input('name');
+            if ($name) {
+                $builder->where(function (Builder $builder) use ($name) {
+                    $builder->orWhere('first_name', 'like', '%' . $name . '%');
+                    $builder->orWhere('last_name', 'like', '%' . $name . '%');
+                });
+            }
 
-           $email = $request->input('email');
-           if($email){
-               $builder->where('email', 'like', '%'.$email.'%');
-           }
+            $email = $request->input('email');
+            if ($email) {
+                $builder->where('email', 'like', '%' . $email . '%');
+            }
 
             $phone = $request->input('phone');
             if ($phone) {
-                $builder->where('phone', 'like', '%'.$phone.'%');
+                $builder->where('phone', 'like', '%' . $phone . '%');
             }
         });
 

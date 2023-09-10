@@ -6,8 +6,6 @@ use App\Models\Contact;
 use Database\Seeders\ContactSeeder;
 use Database\Seeders\SearchSeeder;
 use Database\Seeders\UserSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
@@ -85,7 +83,7 @@ class ContactTest extends TestCase
         $this->seed([UserSeeder::class, ContactSeeder::class]);
         $contact = Contact::query()->limit(1)->first();
 
-        $this->get('/api/contacts/'.$contact->id, [
+        $this->get('/api/contacts/' . $contact->id, [
             'Authorization' => 'test'
         ])->assertStatus(200)
             ->assertJson([
@@ -103,13 +101,13 @@ class ContactTest extends TestCase
         $this->seed([UserSeeder::class, ContactSeeder::class]);
         $contact = Contact::query()->limit(1)->first();
 
-        $this->get('/api/contacts/'.($contact->id + 1), [
+        $this->get('/api/contacts/' . ($contact->id + 1), [
             'Authorization' => 'test'
         ])->assertStatus(404)
             ->assertJson([
                 'errors' => [
                     'message' => [
-                    'User not found'
+                        'Contact not found'
                     ]
                 ]
             ]);
@@ -120,13 +118,13 @@ class ContactTest extends TestCase
         $this->seed([UserSeeder::class, ContactSeeder::class]);
         $contact = Contact::query()->limit(1)->first();
 
-        $this->get('/api/contacts/'.($contact->id + 1), [
+        $this->get('/api/contacts/' . ($contact->id + 1), [
             'Authorization' => 'test2'
         ])->assertStatus(404)
             ->assertJson([
                 'errors' => [
                     'message' => [
-                        'User not found'
+                        'Contact not found'
                     ]
                 ]
             ]);
@@ -137,7 +135,7 @@ class ContactTest extends TestCase
         $this->seed([UserSeeder::class, ContactSeeder::class]);
         $contact = Contact::query()->limit(1)->first();
 
-        $this->put('/api/contacts/'.$contact->id,
+        $this->put('/api/contacts/' . $contact->id,
             [
                 'first_name' => 'test2',
                 'last_name' => 'test2',
@@ -145,7 +143,7 @@ class ContactTest extends TestCase
                 'phone' => '111111112'
             ],
             [
-            'Authorization' => 'test'
+                'Authorization' => 'test'
             ]
         )->assertStatus(200)
             ->assertJson([
@@ -163,7 +161,7 @@ class ContactTest extends TestCase
         $this->seed([UserSeeder::class, ContactSeeder::class]);
         $contact = Contact::query()->limit(1)->first();
 
-        $this->put('/api/contacts/'.$contact->id,
+        $this->put('/api/contacts/' . $contact->id,
             [
                 'first_name' => '',
                 'last_name' => 'test2',
@@ -188,8 +186,8 @@ class ContactTest extends TestCase
         $this->seed([UserSeeder::class, ContactSeeder::class]);
         $contact = Contact::query()->limit(1)->first();
 
-        $this->delete('/api/contacts/'.$contact->id, [], [
-                'Authorization' => 'test'
+        $this->delete('/api/contacts/' . $contact->id, [], [
+            'Authorization' => 'test'
         ])->assertStatus(200)
             ->assertJson([
                 'data' => true
@@ -201,13 +199,13 @@ class ContactTest extends TestCase
         $this->seed([UserSeeder::class, ContactSeeder::class]);
         $contact = Contact::query()->limit(1)->first();
 
-        $this->delete('/api/contacts/'.($contact->id + 1), [], [
+        $this->delete('/api/contacts/' . ($contact->id + 1), [], [
             'Authorization' => 'test'
         ])->assertStatus(404)
             ->assertJson([
                 'errors' => [
                     'message' => [
-                        'User not found'
+                        'Contact not found'
                     ]
                 ]
             ]);
