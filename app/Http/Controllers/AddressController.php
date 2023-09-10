@@ -43,11 +43,15 @@ class AddressController extends Controller
         return $contact;
     }
 
-    public function get(int $idContact, int $idAddress): AddressResource
+    public function update(int $idContact, int $idAddress, AddressUpdateRequest $request): AddressResource
     {
         $user = Auth::user();
         $contact = $this->getContact($user, $idContact);
         $address = $this->getAddress($contact, $idAddress);
+
+        $data = $request->validated();
+        $address->fill($data);
+        $address->save();
 
         return new AddressResource($address);
     }
@@ -68,15 +72,19 @@ class AddressController extends Controller
         return $address;
     }
 
-    public function update(int $idContact, int $idAddress, AddressUpdateRequest $request): AddressResource
+    public function list(int $idContact): JsonResponse
+    {
+        $user = Auth::user();
+        $contact = $this->getContact($user, $idContact);
+        $addresses = Address::where('contact_id', $contact->id)->get();
+        return (AddressResource::collection($addresses))->response()->setStatusCode(200);
+    }
+
+    public function get(int $idContact, int $idAddress): AddressResource
     {
         $user = Auth::user();
         $contact = $this->getContact($user, $idContact);
         $address = $this->getAddress($contact, $idAddress);
-
-        $data = $request->validated();
-        $address->fill($data);
-        $address->save();
 
         return new AddressResource($address);
     }
