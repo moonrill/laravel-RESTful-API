@@ -1,0 +1,125 @@
+### Register User API
+POST http://localhost:8000/api/users
+Content-Type: application/json
+Accept:application/json
+
+{
+    "username": "aaron",
+    "password": "rahasia",
+    "name": "Aaron Moon"
+}
+
+### Login User API
+POST http://localhost:8000/api/users/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "username": "aaron",
+    "password": "rahasia"
+}
+
+### Get Current User API
+GET http://localhost:8000/api/users/current
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+### Update Current User API
+PATCH http://localhost:8000/api/users/current
+Content-Type: application/json
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+{
+    "name": "Moon"
+}
+
+### Logout User API
+DELETE http://localhost:8000/api/users/logout
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e
+
+
+### Create Contact API
+POST http://localhost:8000/api/contacts
+Content-Type: application/json
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+{
+    "first_name": "Kurniawan",
+    "last_name": "Bagas",
+    "email": "kubag@gmail.com",
+    "phone": "23221121"
+}
+
+### Get Contact API#485
+GET http://localhost:8000/api/contacts/485
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+### Update Contact API#485
+PUT http://localhost:8000/api/contacts/485
+Content-Type: application/json
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+{
+    "first_name": "Anto",
+    "last_name": "Morro",
+    "email": "joko21@gmail.com",
+    "phone": "1232111223"
+}
+
+### Delete Contact API#485
+DELETE http://localhost:8000/api/contacts/485
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+### Search Contact API
+GET http://localhost:8000/api/contacts?email=bag
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+### Create Address API#490
+POST http://localhost:8000/api/contacts/490/addresses
+Content-Type: application/json
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+{
+    "street": "Jalan Mulu Jadian Kaga",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "country": "Indonesia",
+    "postal_code": "12371"
+}
+
+### Get Adress API#37
+GET http://localhost:8000/api/contacts/490/addresses/37
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+### Update Address API#36
+PUT http://localhost:8000/api/contacts/490/addresses/36
+Content-Type: application/json
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+{
+    "street": "Jalan Kita Masih Panjang",
+    "city": "Bandung",
+    "province": "Jawa Barat",
+    "country": "Indonesia",
+    "postal_code": "12371"
+}
+
+### Remove Address API#36
+DELETE http://localhost:8000/api/contacts/490/addresses/36
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b
+
+### List Address API
+GET http://localhost:8000/api/contacts/490/addresses
+Accept: application/json
+Authorization: 66a41d59-6dd0-46c8-b725-1eaf74133e0b

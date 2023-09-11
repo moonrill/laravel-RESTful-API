@@ -11,7 +11,7 @@
         }
     ],
     "paths": {
-        "/api/contacs": {
+        "/api/contacts": {
             "post": {
                 "description": "Create new contact",
                 "parameters": [
@@ -155,7 +155,7 @@
                 }
             }
         },
-        "/api/contacs/{id}": {
+        "/api/contacts/{id}": {
             "get": {
                 "description": "Get contact",
                 "parameters": [
